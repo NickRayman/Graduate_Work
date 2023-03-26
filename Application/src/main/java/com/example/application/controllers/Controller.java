@@ -1,6 +1,6 @@
 package com.example.application.controllers;
 
-import com.example.application.HelloApplication;
+import com.example.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class HelloController {
+public class Controller {
 
     @FXML
     private ResourceBundle resources;
@@ -37,6 +37,22 @@ public class HelloController {
 
     @FXML
     void initialize() {
+
+        /**
+         * Авторизация пользователя при вооде данных в поля
+         * "Логин" и "Пароль"
+         */
+        authSignInButton.setOnAction(event -> {
+            String loginText = login_field.getText().trim();
+            String loginPassword = password_field.getText().trim();
+
+            if (!loginText.equals("") && !loginPassword.equals(""))
+                loginUser(loginText, loginPassword);
+            else
+                System.out.println("Поля \"Логин\" и \"Пароль\" не заполнены!");
+
+        });
+
         /**
          * Вызов метода setOnAction, при нажатии на кнопку "Зарегистрироваться",
          * который выполняет событие закрытия главного окна и появления нового окна
@@ -45,7 +61,7 @@ public class HelloController {
         loginSignUpButton.setOnAction(event -> {
             loginSignUpButton.getScene().getWindow().hide();
 
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("signUp.fxml"));
+            FXMLLoader loader = new FXMLLoader(Application.class.getResource("signUp.fxml"));
             try {
                 loader.load();
             } catch (IOException e) {
@@ -61,6 +77,10 @@ public class HelloController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         });
+
+    }
+
+    private void loginUser(String loginText, String loginPassword) {
 
     }
 
