@@ -19,7 +19,7 @@ public class SingUpController {
     private URL location;
 
     @FXML
-    private TextField login_field1;
+    private TextField login_field;
 
     @FXML
     private PasswordField password_field;
@@ -37,10 +37,25 @@ public class SingUpController {
     private TextField signUpCountry;
 
     @FXML
+    private TextField signUpINN;
+
+    @FXML
     private TextField signUpLastName;
 
     @FXML
+    private TextField signUpMiddleName;
+
+    @FXML
     private TextField signUpName;
+
+    @FXML
+    private TextField signUpPassport;
+
+    @FXML
+    private TextField signUpPhoneNumber;
+
+    @FXML
+    private TextField signUpSNILS;
 
     @FXML
     void initialize() {
@@ -55,18 +70,26 @@ public class SingUpController {
         DataBaseHandler dbHandler = new DataBaseHandler();
 
         String firstName = signUpName.getText();
+        String middleName = signUpMiddleName.getText();
         String lastName = signUpLastName.getText();
-        String userName = login_field1.getText();
+        String userName = login_field.getText();
         String password = password_field.getText();
         String location = signUpCountry.getText();
+        String telephone = signUpPhoneNumber.getText();
+        String seriesNumberPassport = signUpPassport.getText();
+        String SNILS = signUpSNILS.getText();
+        String INN = signUpINN.getText();
         String gender = "";
+
         if (signUpCheckBoxMale.isSelected())
             gender = "Мужской";
         else
             gender = "Женский";
 
-        User user = new User(firstName, lastName,
-                userName, password, location, gender);
+        User user = new User(firstName, middleName,
+                lastName, userName, gender, password,
+                location, telephone, seriesNumberPassport,
+                SNILS, INN);
 
         dbHandler.signUpUser(user);
     }

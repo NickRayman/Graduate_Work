@@ -1,6 +1,9 @@
 package com.example.application.controllers;
 
 import com.example.application.Application;
+import com.example.application.DB.DataBaseHandler;
+import com.example.application.animations.ShakeAnimation;
+import com.example.application.configs.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +11,8 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
@@ -50,7 +55,6 @@ public class Controller {
                 loginUser(loginText, loginPassword);
             else
                 System.out.println("Поля \"Логин\" и \"Пароль\" не заполнены!");
-
         });
 
         /**
@@ -59,29 +63,56 @@ public class Controller {
          * для регистрации пользователей.
          */
         loginSignUpButton.setOnAction(event -> {
-            loginSignUpButton.getScene().getWindow().hide();
-
-            FXMLLoader loader = new FXMLLoader(Application.class.getResource("signUp.fxml"));
-            try {
-                loader.load();
-            } catch (IOException e) {
-                System.out.println("Путь к файлу указан неверно!");
-                e.printStackTrace();
-            }
-
-            /**
-             * Отображение нужного нам окна, т.е FXML файл
-             */
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+            openNewScene("signUp.fxml");
         });
 
     }
 
     private void loginUser(String loginText, String loginPassword) {
+        DataBaseHandler dbHandler = new DataBaseHandler();
+        User user = new User();
+        user.setUserName(loginText);
+        user.setPassword(loginPassword);
+        ResultSet result = dbHandler.getUser(user);
 
+        int counter = 0;
+        try {
+            while (result.next()) {
+                counter++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (counter >= 1) {
+            System.out.println("Пользоваетель найден!");
+            openNewScene("app.fxml");
+
+        } else {
+            System.out.println("Данный пользователь не зарегистрирован!");
+            ShakeAnimation userLoginAnime = new ShakeAnimation(login_field);
+            ShakeAnimation userPassword = new ShakeAnimation(password_field);
+            userLoginAnime.playAnime();
+            userPassword.playAnime();
+        }
     }
 
+    public void openNewScene(String window) {
+        loginSignUpButton.getScene().getWindow().hide();
+
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource(window));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            System.out.println("Путь к файлу указан неверно!");
+            e.printStackTrace();
+        }
+
+        /**
+         * Отображение нужного нам окна, т.е FXML файл
+         */
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+    }
 }

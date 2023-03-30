@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #FFA500;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.controllers.SmileController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #FFA500;" xmlns="http://javafx.com/javafx/19">
     <children>
         <AnchorPane layoutY="88.0" prefHeight="312.0" prefWidth="700.0" style="-fx-background-color: #FFFFFF;">
             <children>
@@ -15,9 +15,9 @@
                         <Font name="Franklin Gothic Heavy" size="41.0" />
                     </font>
                 </Label>
-            <ImageView fx:id="imageButtonHome" fitHeight="150.0" fitWidth="200.0" layoutX="274.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="205.0" fitWidth="260.0" layoutX="248.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@assets/Smile.jpg" />
+                  <Image url="@Authorization.png" />
                </image>
             </ImageView>
             </children>
