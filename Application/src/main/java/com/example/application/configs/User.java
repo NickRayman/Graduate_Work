@@ -30,17 +30,6 @@ public class User {
 
     /**
      * Конструктор User с параметрами данных о пользователе
-     * @param firstName
-     * @param middleName
-     * @param lastName
-     * @param userName
-     * @param gender
-     * @param password
-     * @param location
-     * @param telephone
-     * @param seriesNumberPassport
-     * @param SNILS
-     * @param INN
      */
     public User(String firstName, String middleName, String lastName, String userName, String gender, String password, String location, String telephone, String seriesNumberPassport, String SNILS, String INN) {
         this.firstName = firstName;
@@ -57,9 +46,20 @@ public class User {
     }
 
     /**
+     * Метод dataChecking() возвращает true, если все данные о пользователе заполнены
+     * и false, если хотябы один не заполнен данными
+     */
+    public boolean dataChecking() {
+        return !firstName.equals("") && !middleName.equals("") &&
+                !lastName.equals("") && !userName.equals("") &&
+                !gender.equals("") && !gender.equals("Undefined") && !password.equals("") &&
+                !location.equals("") && !telephone.equals("") &&
+                !seriesNumberPassport.equals("") && !SNILS.equals("") &&
+                !INN.equals("");
+    }
+
+    /**
      * Сеттеры
-     *
-     * @param firstName
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -107,8 +107,6 @@ public class User {
 
     /**
      * Геттеры
-     *
-     * @return
      */
     public String getFirstName() {
         return firstName;

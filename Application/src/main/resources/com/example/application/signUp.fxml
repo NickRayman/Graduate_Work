@@ -29,29 +29,29 @@
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="login_field" layoutX="14.0" layoutY="236.0" prefHeight="39.0" prefWidth="258.0" promptText="Логин" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
+            <TextField fx:id="login_field" layoutX="14.0" layoutY="289.0" prefHeight="39.0" prefWidth="258.0" promptText="Логин" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
                <font>
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="signUpLastName" layoutX="14.0" layoutY="153.0" prefHeight="39.0" prefWidth="258.0" promptText="Фамилия" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
+            <TextField fx:id="signUpLastName" layoutX="14.0" layoutY="192.0" prefHeight="39.0" prefWidth="258.0" promptText="Фамилия" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
                <font>
                   <Font size="17.0" />
                </font>
             </TextField>
-            <CheckBox fx:id="signUpCheckBoxMale" layoutX="14.0" layoutY="209.0" mnemonicParsing="false" text="Мужчина" />
-            <CheckBox fx:id="signUpCheckBoxFemale" layoutX="196.0" layoutY="209.0" mnemonicParsing="false" text="Женщина" />
-            <PasswordField fx:id="password_field" layoutX="14.0" layoutY="282.0" prefHeight="39.0" prefWidth="258.0" promptText="Пароль" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
+            <CheckBox fx:id="signUpCheckBoxMale" layoutX="14.0" layoutY="253.0" mnemonicParsing="false" text="Мужчина" />
+            <CheckBox fx:id="signUpCheckBoxFemale" layoutX="196.0" layoutY="253.0" mnemonicParsing="false" text="Женщина" />
+            <PasswordField fx:id="password_field" layoutX="14.0" layoutY="344.0" prefHeight="39.0" prefWidth="258.0" promptText="Пароль" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
                <font>
                   <Font size="17.0" />
                </font>
             </PasswordField>
-            <TextField fx:id="signUpCountry" layoutX="557.0" layoutY="242.0" prefHeight="39.0" prefWidth="258.0" promptText="Страна" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
+            <TextField fx:id="signUpCountry" layoutX="557.0" layoutY="308.0" prefHeight="39.0" prefWidth="258.0" promptText="Страна" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
                <font>
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="signUpMiddleName" layoutX="14.0" layoutY="108.0" prefHeight="39.0" prefWidth="258.0" promptText="Отчество" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
+            <TextField fx:id="signUpMiddleName" layoutX="14.0" layoutY="127.0" prefHeight="39.0" prefWidth="258.0" promptText="Отчество" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
                <font>
                   <Font size="17.0" />
                </font>
@@ -61,17 +61,17 @@
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="signUpPassport" layoutX="557.0" layoutY="108.0" prefHeight="39.0" prefWidth="258.0" promptText="Серия и номер паспорта" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
+            <TextField fx:id="signUpPassport" layoutX="557.0" layoutY="127.0" prefHeight="39.0" prefWidth="258.0" promptText="Серия и номер паспорта" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
                <font>
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="signUpSNILS" layoutX="557.0" layoutY="153.0" prefHeight="39.0" prefWidth="258.0" promptText="СНИЛС" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
+            <TextField fx:id="signUpSNILS" layoutX="557.0" layoutY="192.0" prefHeight="39.0" prefWidth="258.0" promptText="СНИЛС" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
                <font>
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="signUpINN" layoutX="557.0" layoutY="198.0" prefHeight="39.0" prefWidth="258.0" promptText="ИНН" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
+            <TextField fx:id="signUpINN" layoutX="557.0" layoutY="251.0" prefHeight="39.0" prefWidth="258.0" promptText="ИНН" style="-fx-background-color: #FFFFFF; -fx-border-color: #808080; -fx-border-radius: 5;">
                <font>
                   <Font size="17.0" />
                </font>
@@ -81,6 +81,71 @@
                   <Image url="@UserData.png" />
                </image>
             </ImageView>
+            <Button fx:id="comeBackButton" layoutX="625.0" layoutY="372.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="189.0" style="-fx-background-color: #CD5C5C;" text="Назад" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS" size="25.0" />
+               </font>
+            </Button>
+            <Label fx:id="labelName" layoutX="14.0" layoutY="44.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelMiddleName" layoutX="14.0" layoutY="109.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelLastName" layoutX="13.0" layoutY="173.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelMale" layoutX="14.0" layoutY="231.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelLogin" layoutX="13.0" layoutY="273.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelPassword" layoutX="14.0" layoutY="328.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelTelephone" layoutX="557.0" layoutY="44.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelSeriesNumberPassport" layoutX="557.0" layoutY="108.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelSNILS" layoutX="557.0" layoutY="173.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelINN" layoutX="557.0" layoutY="232.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelCountry" layoutX="557.0" layoutY="292.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Britannic Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelInformation" layoutX="289.0" layoutY="330.0" prefHeight="28.0" prefWidth="251.0" textFill="INDIANRED">
+               <font>
+                  <Font name="Franklin Gothic Heavy" size="15.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
         <Label layoutX="278.0" layoutY="14.0" text="RayCorporation" textFill="WHITE">
