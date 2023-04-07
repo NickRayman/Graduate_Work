@@ -122,6 +122,7 @@ public class SingUpController {
      */
     private void signNewUser() {
 
+
         resetLabel();
 
         DataBaseHandler dbHandler = new DataBaseHandler();

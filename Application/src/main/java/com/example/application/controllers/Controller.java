@@ -22,6 +22,11 @@ import javafx.stage.Stage;
 
 public class Controller {
 
+
+    /**
+     * Ссылка на контроллер окна поиска текста
+     */
+    private AppController children;
     @FXML
     private ResourceBundle resources;
 
@@ -63,6 +68,7 @@ public class Controller {
          * для регистрации пользователей.
          */
         loginSignUpButton.setOnAction(event -> {
+
             openNewScene("signUp.fxml");
         });
 
@@ -85,7 +91,7 @@ public class Controller {
         }
         if (counter >= 1) {
             System.out.println("Пользоваетель найден!");
-            openNewScene("app.fxml");
+            openAppController("app.fxml");
 
         } else {
             System.out.println("Данный пользователь не зарегистрирован!");
@@ -100,6 +106,7 @@ public class Controller {
         loginSignUpButton.getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader(Application.class.getResource(window));
+
         try {
             loader.load();
         } catch (IOException e) {
@@ -114,5 +121,40 @@ public class Controller {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.showAndWait();
+
+    }
+
+    public void openAppController(String window) {
+        loginSignUpButton.getScene().getWindow().hide();
+
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource(window));
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            System.out.println("Путь к файлу указан неверно!");
+            e.printStackTrace();
+        }
+
+        /**
+         * Отображение нужного нам окна, т.е FXML файл
+         */
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        children = loader.getController();
+        children.setParent(this);
+        stage.showAndWait();
+    }
+
+    /**
+     * Геттеры
+     */
+    public TextField getLogin_field() {
+        return login_field;
+    }
+
+    public PasswordField getPassword_field() {
+        return password_field;
     }
 }

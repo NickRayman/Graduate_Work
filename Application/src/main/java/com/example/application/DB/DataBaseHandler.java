@@ -18,10 +18,6 @@ public class DataBaseHandler extends Configs {
 
     /**
      * Метод getDbConnection выполняет проверку соединения с базой данных;
-     *
-     * @return
-     * @throws ClassNotFoundException
-     * @throws SQLException
      */
     public Connection getDbConnection() throws ClassNotFoundException, SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":"
@@ -34,8 +30,6 @@ public class DataBaseHandler extends Configs {
     /**
      * Метод signUpUser(User user) добавляет зарегистрированного пользователя
      * в БД
-     *
-     * @param user
      */
     public void signUpUser(User user) {
 
@@ -75,8 +69,6 @@ public class DataBaseHandler extends Configs {
     /**
      * Метод getUser(User user) возращает авторизированного пользователя
      * в БД
-     * @param user
-     * @return
      */
     public ResultSet getUser(User user) {
         ResultSet resSet = null;
@@ -100,5 +92,51 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
         return resSet;
+    }
+
+    /**
+     * Метод getFullUser(User user) возращает авторизированного пользователя
+     * в БД
+     */
+    public void getFullUser(User user) {
+        ResultSet resSet;
+
+        /**
+         * SQL-запрос для нахождения данных пользователя по введенным данным "Логин"
+         * и "Пароль"
+         */
+        String select = "SELECT " + Const.USER_ID + "," + Const.USER_FIRSTNAME + "," +
+                Const.USER_MIDDLE_NAME + "," + Const.USER_LASTNAME + "," +
+                Const.USER_USERNAME + "," + Const.USER_GENDER + "," +
+                Const.USER_PASSWORD + "," + Const.USER_LOCATION + "," +
+                Const.USER_TELEPHONE + "," + Const.USER_SERIES_NUMBER_PASSPORT + "," +
+                Const.USER_TELEPHONE + "," + Const.USER_SERIES_NUMBER_PASSPORT + "," +
+                Const.USER_SNILS + "," + Const.USER_INN +
+                " FROM " + Const.USER_TABLE + " WHERE " +
+                Const.USER_USERNAME + "=? AND " + Const.USER_PASSWORD + "=?";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+
+            prSt.setString(1, user.getUserName());
+            prSt.setString(2, user.getPassword());
+
+            resSet = prSt.executeQuery();
+            while (resSet.next()) {
+                user.setId(resSet.getInt(Const.USER_ID));
+                user.setFirstName(resSet.getString(Const.USER_FIRSTNAME));
+                user.setMiddleName(resSet.getString(Const.USER_MIDDLE_NAME));
+                user.setLastName(resSet.getString(Const.USER_LASTNAME));
+                user.setGender(resSet.getString(Const.USER_GENDER));
+                user.setLocation(resSet.getString(Const.USER_LOCATION));
+                user.setTelephone(resSet.getString(Const.USER_TELEPHONE));
+                user.setSeriesNumberPassport(resSet.getString(Const.USER_SERIES_NUMBER_PASSPORT));
+                user.setSNILS(resSet.getString(Const.USER_SNILS));
+                user.setINN(resSet.getString(Const.USER_INN));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -9,6 +9,7 @@ public class User {
     /**
      * Поля данных пользователя
      */
+    private int id;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -105,6 +106,10 @@ public class User {
         this.INN = INN;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * Геттеры
      */
@@ -150,5 +155,9 @@ public class User {
 
     public String getINN() {
         return INN;
+    }
+
+    public int getId() {
+        return id;
     }
 }

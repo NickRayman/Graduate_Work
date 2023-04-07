@@ -11,12 +11,12 @@
     <children>
         <AnchorPane layoutY="88.0" prefHeight="312.0" prefWidth="700.0" style="-fx-background-color: #FFFFFF;">
             <children>
-                <Label layoutX="170.0" layoutY="45.0" text="Вы авторизованы" textFill="INDIANRED">
+                <Label layoutX="171.0" layoutY="14.0" text="Вы авторизованы" textFill="INDIANRED">
                     <font>
                         <Font name="Franklin Gothic Heavy" size="41.0" />
                     </font>
                 </Label>
-            <ImageView fitHeight="205.0" fitWidth="260.0" layoutX="248.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="235.0" fitWidth="333.0" layoutX="233.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Authorization.png" />
                </image>
@@ -24,6 +24,11 @@
             <Button fx:id="comeBackButton" layoutX="496.0" layoutY="246.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="189.0" style="-fx-background-color: #CD5C5C;" text="Назад" textFill="WHITE">
                <font>
                   <Font name="Comic Sans MS" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="downloadButton" layoutX="14.0" layoutY="248.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="190.0" style="-fx-background-color: #CD5C5C;" text="Скачать данные на пк" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS" size="16.0" />
                </font>
             </Button>
             </children>
