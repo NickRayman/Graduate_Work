@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #FFA500;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.controllers.AppController">
+    <children>
+        <AnchorPane layoutY="88.0" prefHeight="312.0" prefWidth="700.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Label layoutX="171.0" layoutY="14.0" text="Вы авторизованы" textFill="INDIANRED">
+                    <font>
+                        <Font name="Franklin Gothic Heavy" size="41.0" />
+                    </font>
+                </Label>
+            <ImageView fitHeight="235.0" fitWidth="333.0" layoutX="233.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Authorization.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="comeBackButton" layoutX="496.0" layoutY="246.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="189.0" style="-fx-background-color: #CD5C5C;" text="Назад" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="downloadButton" layoutX="14.0" layoutY="248.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="190.0" style="-fx-background-color: #CD5C5C;" text="Скачать данные на пк" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS" size="16.0" />
+               </font>
+            </Button>
+            </children>
+        </AnchorPane>
+        <Label layoutX="212.0" layoutY="14.0" text="RayCorporation" textFill="WHITE">
+            <font>
+                <Font name="Bernard MT Condensed" size="46.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
