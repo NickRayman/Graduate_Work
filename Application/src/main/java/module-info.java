@@ -4,7 +4,9 @@ module com.example.application {
     requires java.sql;
     requires commons.math3;
     requires org.apache.logging.log4j;
+
     requires org.apache.poi.poi;
+    requires log4j;
 
 
     opens com.example.application to javafx.fxml;

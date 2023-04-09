@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 
 import com.example.application.Client.CRUDClient;
 import com.example.application.ClientApplication;
-import com.example.application.DB.DataBaseHandler;
 import com.example.application.configs.Const;
 import com.example.application.configs.User;
 import javafx.fxml.FXML;
@@ -17,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -42,6 +42,11 @@ public class AppController {
      * Поле CRUDClient client для получения ответа c сервера
      */
     private CRUDClient client = new CRUDClient();
+
+    /**
+     * Поле логгер
+     */
+    private Logger logger = Logger.getLogger(AppController.class);
 
 
     @FXML
@@ -76,8 +81,7 @@ public class AppController {
             stage.show();
 
         } catch (IOException e) {
-            System.out.println("Путь к файлу указан неверно!");
-            e.printStackTrace();
+            logger.error("Путь к файлу указан неверно!", e);
         }
     }
     /**
@@ -141,6 +145,7 @@ public class AppController {
                 user.getLastName() +".xls", false)) {
             wb.write(fos);
         } catch (IOException e) {
+            logger.error("Путь к файлу указан неверно!", e);
             throw new RuntimeException(e);
         }
     }

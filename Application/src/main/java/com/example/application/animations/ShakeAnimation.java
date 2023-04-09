@@ -4,7 +4,6 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
-import java.util.concurrent.TransferQueue;
 
 /**
  * Класс ShakeAnimation выполняет функцию анимации оконого приложения
@@ -15,7 +14,6 @@ public class ShakeAnimation {
     /**
      * Конструктор hakeAnimation(Node node) с параметром объекта
      * текстового поля оконного приложения
-     * @param node
      */
     public ShakeAnimation(Node node) {
         transition = new TranslateTransition(Duration.millis(70), node);

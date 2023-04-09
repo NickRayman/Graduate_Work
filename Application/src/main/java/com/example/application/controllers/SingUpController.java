@@ -3,16 +3,15 @@ package com.example.application.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import com.example.application.Client.CRUDClient;
 import com.example.application.ClientApplication;
-import com.example.application.DB.DataBaseHandler;
 import com.example.application.configs.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 public class SingUpController {
     @FXML
@@ -103,6 +102,11 @@ public class SingUpController {
      * Поле CRUDClient client для получения добавления пользователя на сервер
      */
     private CRUDClient client = new CRUDClient();
+
+    /**
+     * Поле логгер
+     */
+    private Logger logger = Logger.getLogger(SingUpController.class);
 
     @FXML
     void initialize() {
@@ -215,8 +219,7 @@ public class SingUpController {
             stage.show();
 
         } catch (IOException e) {
-            System.out.println("Путь к файлу указан неверно!");
-            e.printStackTrace();
+            logger.error("Путь к файлу указан неверно!", e);
         }
     }
 

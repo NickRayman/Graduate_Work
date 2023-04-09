@@ -3,6 +3,8 @@ package com.example.application.Server;
 import com.example.application.DB.DataBaseHandler;
 import com.example.application.configs.Operation;
 import com.example.application.configs.User;
+import org.apache.log4j.Logger;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 /**
  * Класс ServerDataBase сервера, который будет
@@ -24,6 +27,11 @@ public class ServerDataBase {
     private DataBaseHandler dataBaseHandler;
 
     /**
+     * Поле логгер
+     */
+    private Logger logger = Logger.getLogger(ServerDataBase.class);
+
+    /**
      * Конструктор
      */
     public ServerDataBase() {
@@ -33,13 +41,14 @@ public class ServerDataBase {
     public void run() {
         try (ServerSocket serverSocket = new ServerSocket(8080)) {
 
+            logger.info("Сервер заработал");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 runWithDataBaseFromClient(clientSocket);
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Сервер не отправил сообщение");
+            logger.error("Сервер не отправил сообщение", e);
         }
     }
 
@@ -50,11 +59,9 @@ public class ServerDataBase {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(clentSocket.getOutputStream());
              ObjectInputStream objectInputStream = new ObjectInputStream(clentSocket.getInputStream())) {
 
-            System.out.println("Сервер, заработал");
-
             User user = (User) objectInputStream.readObject();
 
-            System.out.println("Сервер получил объект");
+            logger.info("Сервер получил объект - User");
 
             if (user.getOperation().equals(Operation.GET_USER)) {
 
@@ -68,7 +75,7 @@ public class ServerDataBase {
                     e.printStackTrace();
                 }
                 objectOutputStream.writeObject(counter);
-                System.out.println("Сервер отправил объект - Integer");
+                logger.info("Сервер отправил объект - Integer");
 
                 /**
                  * Выталкиваем все из буфера
@@ -78,7 +85,7 @@ public class ServerDataBase {
             } else if (user.getOperation().equals(Operation.GET_FULL_USER)) {
                 dataBaseHandler.getFullUser(user);
                 objectOutputStream.writeObject(user);
-                System.out.println("Сервер отправил объект - User");
+                logger.info("Сервер отправил объект - User");
 
                 /**
                  * Выталкиваем все из буфера
@@ -88,7 +95,7 @@ public class ServerDataBase {
                 dataBaseHandler.signUpUser(user);
                 String message = "Пользователь зарегистрирован";
                 objectOutputStream.writeObject(message);
-                System.out.println("Сервер отправил объект - String");
+                logger.info("Сервер отправил объект - String");
 
                 /**
                  * Выталкиваем все из буфера

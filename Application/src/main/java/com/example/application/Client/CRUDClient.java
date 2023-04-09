@@ -2,14 +2,20 @@ package com.example.application.Client;
 
 import com.example.application.configs.Operation;
 import com.example.application.configs.User;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+
 public class CRUDClient {
 
+    /**
+     * Поле логгер
+     */
+    private Logger logger = Logger.getLogger(CRUDClient.class);
 
     /**
      *Метод resultUser(User user) для получения int значения с сервера
@@ -23,7 +29,7 @@ public class CRUDClient {
         try (Socket clientSocket = new Socket("127.0.0.1", 8080)) {
             counter = runGetUser(clientSocket, user);
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Объект не передался");
+            logger.error("Объект не передался!", e);
         }
         return counter;
     }
@@ -40,7 +46,7 @@ public class CRUDClient {
         try (Socket clientSocket = new Socket("127.0.0.1", 8080)) {
             fullUser = runGetFullUser(clientSocket, user);
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Объект не передался");
+            logger.error("Объект не передался!", e);
         }
         return fullUser;
     }
@@ -57,7 +63,7 @@ public class CRUDClient {
         try (Socket clientSocket = new Socket("127.0.0.1", 8080)) {
            message = runAddUser(clientSocket, user);
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Объект не передался");
+            logger.error("Объект не передался!", e);
         }
         return message;
     }
@@ -70,18 +76,19 @@ public class CRUDClient {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
              ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream())) {
 
-            System.out.println("Клиент заработал");
+            logger.info("Клиент заработал");
 
             user.setOperation(Operation.GET_USER);
 
             objectOutputStream.writeObject(user);
 
-            System.out.println("Клиент отправил объект");
+            logger.info("Клиент отправил объект - User");
 
             objectOutputStream.flush();
 
             int counter = (int) objectInputStream.readObject();
-            System.out.println("Клиент получил объект");
+
+            logger.info("Клиент получил объект - Integer");
 
             return counter;
 
@@ -95,18 +102,18 @@ public class CRUDClient {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
              ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream())) {
 
-            System.out.println("Клиент заработал");
+            logger.info("Клиент заработал");
 
             user.setOperation(Operation.GET_FULL_USER);
 
             objectOutputStream.writeObject(user);
 
-            System.out.println("Клиент отправил объект");
+            logger.info("Клиент отправил объект - User");
 
             objectOutputStream.flush();
 
             User userFromServer = (User) objectInputStream.readObject();
-            System.out.println("Клиент получил объект");
+            logger.info("Клиент получил объект - User");
 
             return userFromServer;
 
@@ -120,18 +127,19 @@ public class CRUDClient {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
              ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream())) {
 
-            System.out.println("Клиент заработал");
+            logger.info("Клиент заработал");
 
             user.setOperation(Operation.ADD_USER);
 
             objectOutputStream.writeObject(user);
 
-            System.out.println("Клиент отправил объект");
+            logger.info("Клиент отправил объект - User");
 
             objectOutputStream.flush();
 
             String addUser = (String) objectInputStream.readObject();
-            System.out.println("Клиент получил объект");
+
+            logger.info("Клиент получил объект - String");
 
             return addUser;
 

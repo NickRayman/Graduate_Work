@@ -59,9 +59,7 @@ public class DataBaseHandler extends Configs {
             prSt.setString(11, user.getINN());
 
             prSt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -86,9 +84,7 @@ public class DataBaseHandler extends Configs {
             prSt.setString(2, user.getPassword());
 
             resSet = prSt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return resSet;
@@ -133,9 +129,7 @@ public class DataBaseHandler extends Configs {
                 user.setSNILS(resSet.getString(Const.USER_SNILS));
                 user.setINN(resSet.getString(Const.USER_INN));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

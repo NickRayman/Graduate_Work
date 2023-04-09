@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 public class Controller {
 
@@ -48,6 +49,11 @@ public class Controller {
      */
     private CRUDClient client = new CRUDClient();
 
+    /**
+     * Поле логгер
+     */
+    private Logger logger = Logger.getLogger(Controller.class);
+
     @FXML
     void initialize() {
 
@@ -62,7 +68,7 @@ public class Controller {
             if (!loginText.equals("") && !loginPassword.equals(""))
                 loginUser(loginText, loginPassword);
             else
-                System.out.println("Поля \"Логин\" и \"Пароль\" не заполнены!");
+                logger.info("Поля \"Логин\" и \"Пароль\" не заполнены!");
         });
 
         /**
@@ -88,11 +94,11 @@ public class Controller {
 
 
         if (counter >= 1) {
-            System.out.println("Пользоваетель найден!");
+            logger.info("Пользоваетель найден");
             openAppController("app.fxml");
 
         } else {
-            System.out.println("Данный пользователь не зарегистрирован!");
+            logger.info("Данный пользователь не зарегистрирован!");
             ShakeAnimation userLoginAnime = new ShakeAnimation(login_field);
             ShakeAnimation userPassword = new ShakeAnimation(password_field);
             userLoginAnime.playAnime();
@@ -108,8 +114,7 @@ public class Controller {
         try {
             loader.load();
         } catch (IOException e) {
-            System.out.println("Путь к файлу указан неверно!");
-            e.printStackTrace();
+
         }
 
         /**
@@ -130,8 +135,7 @@ public class Controller {
         try {
             loader.load();
         } catch (IOException e) {
-            System.out.println("Путь к файлу указан неверно!");
-            e.printStackTrace();
+            logger.error("Путь к файлу указан неверно!", e);
         }
 
         /**
