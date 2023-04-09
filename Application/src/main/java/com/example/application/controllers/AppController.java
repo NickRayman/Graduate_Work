@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.example.application.Application;
+import com.example.application.Client.CRUDClient;
+import com.example.application.ClientApplication;
 import com.example.application.DB.DataBaseHandler;
 import com.example.application.configs.Const;
 import com.example.application.configs.User;
@@ -37,6 +38,11 @@ public class AppController {
     @FXML
     private Button downloadButton;
 
+    /**
+     * Поле CRUDClient client для получения ответа c сервера
+     */
+    private CRUDClient client = new CRUDClient();
+
 
     @FXML
     void initialize() {
@@ -56,7 +62,7 @@ public class AppController {
     public void openNewScene(String window) {
         comeBackButton.getScene().getWindow().hide();
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource(window));
+        FXMLLoader loader = new FXMLLoader(ClientApplication.class.getResource(window));
         try {
 
             /**
@@ -80,12 +86,13 @@ public class AppController {
      */
     public void downloadUserData() {
 
-        DataBaseHandler dbHandler = new DataBaseHandler();
+        //сервер
+
         User user = new User();
         user.setUserName(controller.getLogin_field().getText().trim());
         user.setPassword(controller.getPassword_field().getText().trim());
-        dbHandler.getFullUser(user);
 
+        user = client.resultFullUser(user);
 
         List<String> constData = new ArrayList<>();
         constData.add(Const.USER_ID);
@@ -129,7 +136,9 @@ public class AppController {
             cell.setCellValue(userData.get(i));
             sheet.autoSizeColumn(i);
         }
-        try (FileOutputStream fos = new FileOutputStream("src/main/resources/com/example/application/FileXLSX/" + "Таблица.xls", false)) {
+        try (FileOutputStream fos = new FileOutputStream("C:\\Users\\kolya\\OneDrive\\Рабочий стол\\" +
+                user.getFirstName() + "_" + user.getMiddleName() + "_" +
+                user.getLastName() +".xls", false)) {
             wb.write(fos);
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.example.application.Application;
+import com.example.application.Client.CRUDClient;
+import com.example.application.ClientApplication;
 import com.example.application.DB.DataBaseHandler;
 import com.example.application.configs.User;
 import javafx.fxml.FXML;
@@ -98,6 +99,11 @@ public class SingUpController {
     @FXML
     private TextField signUpSNILS;
 
+    /**
+     * Поле CRUDClient client для получения добавления пользователя на сервер
+     */
+    private CRUDClient client = new CRUDClient();
+
     @FXML
     void initialize() {
 
@@ -125,7 +131,7 @@ public class SingUpController {
 
         resetLabel();
 
-        DataBaseHandler dbHandler = new DataBaseHandler();
+        CRUDClient client = new CRUDClient();
 
         String firstName = signUpName.getText();
         String middleName = signUpMiddleName.getText();
@@ -153,8 +159,10 @@ public class SingUpController {
                 SNILS, INN);
 
         if (user.dataChecking()) {
-            labelInformation.setText("Пользователь зарегистрирован");
-            dbHandler.signUpUser(user);
+
+            String message = client.resultAddUser(user);
+            labelInformation.setText(message);
+
         } else {
             labelInformation.setText("Пользователь не зарегистрирован");
             if (user.getFirstName().equals(""))
@@ -193,7 +201,7 @@ public class SingUpController {
     private void openNewScene(String window) {
         comeBackButton.getScene().getWindow().hide();
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource(window));
+        FXMLLoader loader = new FXMLLoader(ClientApplication.class.getResource(window));
         try {
 
             /**

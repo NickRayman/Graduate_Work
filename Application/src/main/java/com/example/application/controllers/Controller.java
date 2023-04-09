@@ -1,7 +1,7 @@
 package com.example.application.controllers;
 
-import com.example.application.Application;
-import com.example.application.DB.DataBaseHandler;
+import com.example.application.Client.CRUDClient;
+import com.example.application.ClientApplication;
 import com.example.application.animations.ShakeAnimation;
 import com.example.application.configs.User;
 import javafx.fxml.FXML;
@@ -11,8 +11,6 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
@@ -45,6 +43,11 @@ public class Controller {
     @FXML
     private PasswordField password_field;
 
+    /**
+     * Поле CRUDClient client для получения ответа c сервера
+     */
+    private CRUDClient client = new CRUDClient();
+
     @FXML
     void initialize() {
 
@@ -75,20 +78,15 @@ public class Controller {
     }
 
     private void loginUser(String loginText, String loginPassword) {
-        DataBaseHandler dbHandler = new DataBaseHandler();
+        //Сервер
+
         User user = new User();
         user.setUserName(loginText);
         user.setPassword(loginPassword);
-        ResultSet result = dbHandler.getUser(user);
 
-        int counter = 0;
-        try {
-            while (result.next()) {
-                counter++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        int counter = client.resultUser(user);
+
+
         if (counter >= 1) {
             System.out.println("Пользоваетель найден!");
             openAppController("app.fxml");
@@ -105,7 +103,7 @@ public class Controller {
     public void openNewScene(String window) {
         loginSignUpButton.getScene().getWindow().hide();
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource(window));
+        FXMLLoader loader = new FXMLLoader(ClientApplication.class.getResource(window));
 
         try {
             loader.load();
@@ -127,7 +125,7 @@ public class Controller {
     public void openAppController(String window) {
         loginSignUpButton.getScene().getWindow().hide();
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource(window));
+        FXMLLoader loader = new FXMLLoader(ClientApplication.class.getResource(window));
 
         try {
             loader.load();

@@ -1,10 +1,12 @@
 package com.example.application.configs;
 
+import java.io.Serializable;
+
 /**
  * Класс User хранит поля данных
  * зарегистрированного пользователя
  */
-public class User {
+public class User implements Serializable {
 
     /**
      * Поля данных пользователя
@@ -21,6 +23,8 @@ public class User {
     private String seriesNumberPassport;
     private String SNILS;
     private String INN;
+
+    private Operation operation;
 
 
     /**
@@ -110,6 +114,10 @@ public class User {
         this.id = id;
     }
 
+    public void setOperation(Operation operation) {
+        this.operation = operation;
+    }
+
     /**
      * Геттеры
      */
@@ -159,5 +167,9 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public Operation getOperation() {
+        return operation;
     }
 }
