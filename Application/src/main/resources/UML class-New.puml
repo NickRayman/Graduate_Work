@@ -1,0 +1,78 @@
+@startuml
+package src/main/java/com/example/application/configs <<Package>>{
+class Configs {
+
+}
+class Const {
+
+}
+enum Operation {
+    ADD_USER,
+    GET_USER,
+    GET_FULL_USER,
+}
+Operation o-- User
+class User {
+
+}
+}
+package src/main/java/com/example/application/animations <<Package>>{
+class ShakeAnimation {
+
+}
+}
+package src/main/java/com/example/application/DB <<Cloud>>{
+Configs <|-- DataBaseHandler
+Const *-- DataBaseHandler
+User <.. DataBaseHandler
+class DataBaseHandler {
+
+}
+}
+package src/main/java/com/example/application/Server <<Package>>{
+Operation *-- ServerDataBase
+DataBaseHandler o-- ServerDataBase
+class ServerDataBase {
+
+}
+ServerDataBase <.. ServerMain
+class ServerMain {
+   +public static void main(String[] args);
+}
+}
+package src/main/java/com/example/application/Client <<Package>>{
+Operation *-- CRUDClient
+User <.. CRUDClient
+class CRUDClient {
+
+}
+}
+package src/main/java/com/example/application/controllers <<Package>>{
+User <.. AppController
+CRUDClient o-- AppController
+Const *-- AppController
+class AppController {
+
+}
+User <.. Controller
+CRUDClient o-- Controller
+ShakeAnimation <.. Controller
+AppController o--o Controller
+class Controller {
+
+}
+User <.. SingUpController
+CRUDClient o-- SingUpController
+class SingUpController {
+
+}
+}
+Controller <.. ClientApplication
+AppController <.. ClientApplication
+SingUpController <.. ClientApplication
+class ClientApplication {
+   +public void start(Stage stage);
+   +public static void main(String[] args);
+}
+
+@enduml

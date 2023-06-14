@@ -3,6 +3,7 @@ package com.example.application.DB;
 import com.example.application.configs.Configs;
 import com.example.application.configs.Const;
 import com.example.application.configs.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -68,31 +69,46 @@ public class DataBaseHandler extends Configs {
      * Метод getUser(User user) возращает авторизированного пользователя
      * в БД
      */
-    public ResultSet getUser(User user) {
+    public int getUser(User user) {
         ResultSet resSet = null;
+        int counter = 0;
 
         /**
-         * SQL-запрос для нахождения пользоваетелей по введенным данным "Логин"
-         * и "Пароль"
+         * SQL-запрос для нахождения пользователя по введенному "Логину"
          */
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " +
-                Const.USER_USERNAME + "=? AND " + Const.USER_PASSWORD + "=?";
+                Const.USER_USERNAME + "=?";
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
 
             prSt.setString(1, user.getUserName());
-            prSt.setString(2, user.getPassword());
 
             resSet = prSt.executeQuery();
+
+            if (resSet.next()) {
+                String hashedPasswordFromDB = resSet.getString(Const.USER_PASSWORD);
+
+                String enteredPassword = user.getPassword();
+                boolean passwordMatch = BCrypt.checkpw(enteredPassword, hashedPasswordFromDB);
+
+                if (passwordMatch) {
+                    // Пароль совпадает, выполните необходимые действия
+                    return 1;
+                } else {
+                    // Пароль не совпадает, обработайте этот случай
+                    return 0;
+                }
+            }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return resSet;
+        return 0;
     }
+
 
     /**
      * Метод getFullUser(User user) возращает авторизированного пользователя
-     * в БД
+     * из БД
      */
     public void getFullUser(User user) {
         ResultSet resSet;
@@ -109,25 +125,32 @@ public class DataBaseHandler extends Configs {
                 Const.USER_TELEPHONE + "," + Const.USER_SERIES_NUMBER_PASSPORT + "," +
                 Const.USER_SNILS + "," + Const.USER_INN +
                 " FROM " + Const.USER_TABLE + " WHERE " +
-                Const.USER_USERNAME + "=? AND " + Const.USER_PASSWORD + "=?";
+                Const.USER_USERNAME + "=?";
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
 
             prSt.setString(1, user.getUserName());
-            prSt.setString(2, user.getPassword());
-
             resSet = prSt.executeQuery();
+
             while (resSet.next()) {
-                user.setId(resSet.getInt(Const.USER_ID));
-                user.setFirstName(resSet.getString(Const.USER_FIRSTNAME));
-                user.setMiddleName(resSet.getString(Const.USER_MIDDLE_NAME));
-                user.setLastName(resSet.getString(Const.USER_LASTNAME));
-                user.setGender(resSet.getString(Const.USER_GENDER));
-                user.setLocation(resSet.getString(Const.USER_LOCATION));
-                user.setTelephone(resSet.getString(Const.USER_TELEPHONE));
-                user.setSeriesNumberPassport(resSet.getString(Const.USER_SERIES_NUMBER_PASSPORT));
-                user.setSNILS(resSet.getString(Const.USER_SNILS));
-                user.setINN(resSet.getString(Const.USER_INN));
+                String hashedPasswordFromDB = resSet.getString(Const.USER_PASSWORD);
+
+                String enteredPassword = user.getPassword();
+                boolean passwordMatch = BCrypt.checkpw(enteredPassword, hashedPasswordFromDB);
+
+                if (passwordMatch) {
+                        // Пароль совпадает, выполните необходимые действия
+                        user.setId(resSet.getInt(Const.USER_ID));
+                        user.setFirstName(resSet.getString(Const.USER_FIRSTNAME));
+                        user.setMiddleName(resSet.getString(Const.USER_MIDDLE_NAME));
+                        user.setLastName(resSet.getString(Const.USER_LASTNAME));
+                        user.setGender(resSet.getString(Const.USER_GENDER));
+                        user.setLocation(resSet.getString(Const.USER_LOCATION));
+                        user.setTelephone(resSet.getString(Const.USER_TELEPHONE));
+                        user.setSeriesNumberPassport(resSet.getString(Const.USER_SERIES_NUMBER_PASSPORT));
+                        user.setSNILS(resSet.getString(Const.USER_SNILS));
+                        user.setINN(resSet.getString(Const.USER_INN));
+                }
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();

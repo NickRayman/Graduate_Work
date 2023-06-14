@@ -1,0 +1,196 @@
+@startuml
+package src/main/java/com/example/application/configs <<Package>>{
+class Configs {
+    #protected String dbHost = "localhost";
+    #protected String dbPort = "3306";
+    #protected String dbUser = "root";
+    #protected String dbPass = "Asdf22030620";
+    #protected String dbName = "raycorporation";
+}
+class Const {
+    +public static final String USER_TABLE = "users";
+    +public static final String USER_ID = "idUsers";
+    +public static final String USER_FIRSTNAME = "firstName";
+    +public static final String USER_MIDDLE_NAME = "middleName";
+    +public static final String USER_LASTNAME = "lastName";
+    +public static final String USER_USERNAME= "userName";
+    +public static final String USER_PASSWORD = "password";
+    +public static final String USER_LOCATION = "location";
+    +public static final String USER_GENDER = "gender";
+    +public static final String USER_TELEPHONE = "telephone";
+    +public static final String USER_SERIES_NUMBER_PASSPORT = "seriesNumberPassport";
+    +public static final String USER_SNILS = "SNILS";
+    +public static final String USER_INN = "INN";
+}
+enum Operation {
+    ADD_USER,
+    GET_USER,
+    GET_FULL_USER,
+}
+Operation o-- User
+class User {
+    -private int id;
+    -private String firstName;
+    -private String middleName;
+    -private String lastName;
+    -private String userName;
+    -private String gender;
+    -private String password;
+    -private String location;
+    -private String telephone;
+    -private String seriesNumberPassport;
+    -private String SNILS;
+    -private String INN;
+    -private Operation operation;
+    +public User();
+    +public User(String firstName, String middleName, String lastName, String userName, String gender, String password,
+    String location, String telephone, String seriesNumberPassport, String SNILS, String INN);
+    +public boolean dataChecking();
+    +public void setFirstName(String firstName);
+    +public void setLastName(String lastName);
+    +public void setUserName(String userName);
+    +public void setPassword(String password);
+    +public void setLocation(String location);
+    +public void setGender(String gender);
+    +public void setMiddleName(String middleName);
+    +public void setTelephone(String telephone);
+    +public void setSeriesNumberPassport(String seriesNumberPassport);
+    +public void setSNILS(String SNILS);
+    +public void setINN(String INN);
+    +public void setId(int id);
+    +public void setOperation(Operation operation);
+}
+}
+package src/main/java/com/example/application/animations <<Package>>{
+class ShakeAnimation {
+ -private TranslateTransition transition;
+ +public ShakeAnimation(Node node);
+ +public void playAnime();
+}
+}
+package src/main/java/com/example/application/DB <<Cloud>>{
+Configs <|-- DataBaseHandler
+Const *-- DataBaseHandler
+User <.. DataBaseHandler
+class DataBaseHandler {
+    #Connection dbConnection;
+    +public Connection getDbConnection();
+    +public void signUpUser(User user);
+    +public ResultSet getUser(User user);
+    +public void getFullUser(User user)
+}
+}
+package src/main/java/com/example/application/Server <<Package>>{
+Operation *-- ServerDataBase
+DataBaseHandler o-- ServerDataBase
+class ServerDataBase {
+    -private DataBaseHandler dataBaseHandler;
+    -private Logger logger;
+    +public ServerDataBase();
+    +public void run();
+    -private void runWithDataBaseFromClient(Socket clentSocket);
+}
+ServerDataBase <.. ServerMain
+class ServerMain {
+   +public static void main(String[] args);
+}
+}
+package src/main/java/com/example/application/Client <<Package>>{
+Operation *-- CRUDClient
+User <.. CRUDClient
+class CRUDClient {
+ -private Logger logger;
+ +public int resultUser(User user);
+ +public User resultFullUser(User user);
+ +public String resultAddUser(User user);
+ -private int runGetUser(Socket clientSocket, User user);
+ -private User runGetFullUser(Socket clientSocket, User user);
+ -private String runAddUser(Socket clientSocket, User user);
+}
+}
+package src/main/java/com/example/application/controllers <<Package>>{
+User <.. AppController
+CRUDClient o-- AppController
+Const *-- AppController
+class AppController {
+    -private Controller controller;
+    -private ResourceBundle resources;
+    -private URL location;
+    -private Button comeBackButton;
+    -private Button downloadButton;
+    -private CRUDClient client;
+    -private Logger logger;
+    #void initialize();
+    +public void openNewScene(String window);
+    +public void downloadUserData();
+    +public void setParent (Controller controller);
+}
+User <.. Controller
+CRUDClient o-- Controller
+ShakeAnimation <.. Controller
+AppController o--o Controller
+class Controller {
+    -private AppController children;
+    -private ResourceBundle resources;
+    -private URL location;
+    -private Button authSignInButton;
+    -private Button loginSignUpButton;
+    -private TextField login_field;
+    -private PasswordField password_field;
+    -private CRUDClient client;
+    -private Logger logger;
+    #void initialize();
+    -private void loginUser(String loginText, String loginPassword);
+    +public void openNewScene(String window);
+    +public void openAppController(String window);
+    +public TextField getLogin_field();
+    +public PasswordField getPassword_field();
+}
+User <.. SingUpController
+CRUDClient o-- SingUpController
+class SingUpController {
+    -private ResourceBundle resources;
+    -private URL location;
+    -private Button comeBackButton;
+    -private Label labelCountry;
+    -private Label labelINN;
+    -private Label labelLastName;
+    -private Label labelLogin;
+    -private Label labelMale;
+    -private Label labelMiddleName;
+    -private Label labelName;
+    -private Label labelPassword;
+    -private Label labelSNILS;
+    -private Label labelSeriesNumberPassport;
+    -private Label labelTelephone;
+    -private Label labelInformation;
+    -private TextField login_field;
+    -private PasswordField password_field;
+    -private Button signUpButton;
+    -private CheckBox signUpCheckBoxFemale;
+    -private CheckBox signUpCheckBoxMale;
+    -private TextField signUpCountry;
+    -private TextField signUpINN;
+    -private TextField signUpLastName;
+    -private TextField signUpMiddleName;
+    -private TextField signUpName;
+    -private TextField signUpPassport;
+    -private TextField signUpPhoneNumber;
+    -private TextField signUpSNILS;
+    -private CRUDClient client;
+    -private Logger logger;
+    #void initialize();
+    -private void signNewUser();
+    -private void openNewScene(String window);
+    -private void resetLabel();
+}
+}
+Controller <.. ClientApplication
+AppController <.. ClientApplication
+SingUpController <.. ClientApplication
+class ClientApplication {
+   +public void start(Stage stage);
+   +public static void main(String[] args);
+}
+
+@enduml

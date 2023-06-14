@@ -1,12 +1,10 @@
 package com.example.application.controllers;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import com.example.application.Client.CRUDClient;
 import com.example.application.ClientApplication;
 import com.example.application.configs.Const;
@@ -24,17 +22,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 public class AppController {
-
     private Controller controller;
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private Button comeBackButton;
-
     @FXML
     private Button downloadButton;
 
@@ -105,7 +99,6 @@ public class AppController {
         constData.add(Const.USER_LASTNAME);
         constData.add(Const.USER_USERNAME);
         constData.add(Const.USER_GENDER);
-        constData.add(Const.USER_PASSWORD);
         constData.add(Const.USER_LOCATION);
         constData.add(Const.USER_TELEPHONE);
         constData.add(Const.USER_SERIES_NUMBER_PASSPORT);
@@ -119,7 +112,6 @@ public class AppController {
         userData.add(String.valueOf(user.getLastName()));
         userData.add(String.valueOf(user.getUserName()));
         userData.add(String.valueOf(user.getGender()));
-        userData.add(String.valueOf(user.getPassword()));
         userData.add(String.valueOf(user.getLocation()));
         userData.add(String.valueOf(user.getTelephone()));
         userData.add(String.valueOf(user.getSeriesNumberPassport()));

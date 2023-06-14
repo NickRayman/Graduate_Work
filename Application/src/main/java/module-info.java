@@ -7,6 +7,7 @@ module com.example.application {
 
     requires org.apache.poi.poi;
     requires log4j;
+    requires jbcrypt;
 
 
     opens com.example.application to javafx.fxml;

@@ -1,7 +1,7 @@
 package com.example.application.Server;
 
 /**
- * Создаю класс в котором будет производится создания и возовы функций;
+ * Создаю класс в котором будет производится создания и вызовы функций;
  */
 public class ServerMain {
     public static void main(String[] args) {

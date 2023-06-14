@@ -1,5 +1,4 @@
 package com.example.application.controllers;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,89 +11,63 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class SingUpController {
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private Button comeBackButton;
-
     @FXML
     private Label labelCountry;
-
     @FXML
     private Label labelINN;
-
     @FXML
     private Label labelLastName;
-
     @FXML
     private Label labelLogin;
-
     @FXML
     private Label labelMale;
-
     @FXML
     private Label labelMiddleName;
-
     @FXML
     private Label labelName;
-
     @FXML
     private Label labelPassword;
-
     @FXML
     private Label labelSNILS;
-
     @FXML
     private Label labelSeriesNumberPassport;
-
     @FXML
     private Label labelTelephone;
-
     @FXML
     private Label labelInformation;
-
     @FXML
     private TextField login_field;
-
     @FXML
     private PasswordField password_field;
-
     @FXML
     private Button signUpButton;
-
     @FXML
     private CheckBox signUpCheckBoxFemale;
-
     @FXML
     private CheckBox signUpCheckBoxMale;
-
     @FXML
     private TextField signUpCountry;
-
     @FXML
     private TextField signUpINN;
-
     @FXML
     private TextField signUpLastName;
-
     @FXML
     private TextField signUpMiddleName;
-
     @FXML
     private TextField signUpName;
-
     @FXML
     private TextField signUpPassport;
-
     @FXML
     private TextField signUpPhoneNumber;
-
     @FXML
     private TextField signUpSNILS;
 
@@ -142,6 +115,7 @@ public class SingUpController {
         String lastName = signUpLastName.getText();
         String userName = login_field.getText();
         String password = password_field.getText();
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         String location = signUpCountry.getText();
         String telephone = signUpPhoneNumber.getText();
         String seriesNumberPassport = signUpPassport.getText();
@@ -158,7 +132,7 @@ public class SingUpController {
 
 
         User user = new User(firstName, middleName,
-                lastName, userName, gender, password,
+                lastName, userName, gender, hashedPassword,
                 location, telephone, seriesNumberPassport,
                 SNILS, INN);
 

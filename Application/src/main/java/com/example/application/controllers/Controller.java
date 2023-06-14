@@ -1,5 +1,4 @@
 package com.example.application.controllers;
-
 import com.example.application.Client.CRUDClient;
 import com.example.application.ClientApplication;
 import com.example.application.animations.ShakeAnimation;
@@ -8,16 +7,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class Controller {
 
@@ -28,21 +27,20 @@ public class Controller {
     private AppController children;
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private Button authSignInButton;
-
     @FXML
     private Button loginSignUpButton;
-
     @FXML
     private TextField login_field;
 
     @FXML
     private PasswordField password_field;
+
+    @FXML
+    private Label labelInformation;
 
     /**
      * Поле CRUDClient client для получения ответа c сервера
@@ -67,8 +65,13 @@ public class Controller {
 
             if (!loginText.equals("") && !loginPassword.equals(""))
                 loginUser(loginText, loginPassword);
-            else
+            else {
+                labelInformation.setText("Поля \"Логин\" и \"Пароль\" не заполнены!");
                 logger.info("Поля \"Логин\" и \"Пароль\" не заполнены!");
+
+            }
+
+
         });
 
         /**
@@ -99,6 +102,7 @@ public class Controller {
 
         } else {
             logger.info("Данный пользователь не зарегистрирован!");
+            labelInformation.setText("Пользователь не зарегистрирован");
             ShakeAnimation userLoginAnime = new ShakeAnimation(login_field);
             ShakeAnimation userPassword = new ShakeAnimation(password_field);
             userLoginAnime.playAnime();
@@ -114,7 +118,7 @@ public class Controller {
         try {
             loader.load();
         } catch (IOException e) {
-
+            logger.error("Путь к файлу указан неверно!", e);
         }
 
         /**

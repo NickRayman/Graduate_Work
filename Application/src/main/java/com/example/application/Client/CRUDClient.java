@@ -1,9 +1,7 @@
 package com.example.application.Client;
-
 import com.example.application.configs.Operation;
 import com.example.application.configs.User;
 import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

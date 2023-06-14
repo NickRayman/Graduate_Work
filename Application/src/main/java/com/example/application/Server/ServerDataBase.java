@@ -1,11 +1,8 @@
 package com.example.application.Server;
-
 import com.example.application.DB.DataBaseHandler;
 import com.example.application.configs.Operation;
 import com.example.application.configs.User;
 import org.apache.log4j.Logger;
-
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -65,16 +62,9 @@ public class ServerDataBase {
 
             if (user.getOperation().equals(Operation.GET_USER)) {
 
-                ResultSet result = dataBaseHandler.getUser(user);
-                int counter = 0;
-                try {
-                    while (result.next()) {
-                        counter++;
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                objectOutputStream.writeObject(counter);
+                int result = dataBaseHandler.getUser(user);
+
+                objectOutputStream.writeObject(result);
                 logger.info("Сервер отправил объект - Integer");
 
                 /**
